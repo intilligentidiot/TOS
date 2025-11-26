@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIM Modeling for BCR Liberia | Commercial Building Case Study</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0B1120', // Deep slate/black
+                        secondary: '#1E293B', // Lighter slate
+                        accent: '#38BDF8', // Sky blue
+                        gold: '#F59E0B', // Amber gold
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        blob: "blob 7s infinite",
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            "0%": { transform: "translate(0px, 0px) scale(1)" },
+                            "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                            "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                            "100%": { transform: "translate(0px, 0px) scale(1)" }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B1120;
+            color: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #F59E0B 0%, #38BDF8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-bg {
+            background-image: url('images/banner.webp');
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0B1120;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-gold selection:text-black">
+
+    <!-- Dynamic Background Blobs -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div
+            class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob">
+        </div>
+        <div
+            class="absolute top-0 right-1/4 w-96 h-96 bg-gold rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000">
+        </div>
+        <div
+            class="absolute -bottom-32 left-1/3 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000">
+        </div>
+    </div>
+
+    <!-- Floating Navbar -->
+    <nav class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
+        <div class="glass-nav rounded-full px-8 py-3 flex items-center justify-between w-full max-w-5xl">
+            <a href="#" class="text-2xl font-bold tracking-tighter text-white">TOS<span class="text-gold">.</span></a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
+                <a href="#hero" class="hover:text-white transition-colors">Home</a>
+                <a href="#timeline" class="hover:text-white transition-colors">Process</a>
+                <a href="#gallery" class="hover:text-white transition-colors">Work</a>
+            </div>
+            <button onclick="openModal()"
+                class="bg-gradient-to-r from-gold to-orange-500 text-black px-6 py-2 rounded-full font-bold hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] transition-all transform hover:scale-105">
+                Get Quote
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden hero-bg">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-[#0B1120] z-10"></div>
+
+        <div class="relative z-20 container mx-auto px-6 text-center">
+            <div
+                class="inline-block mb-4 px-4 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm font-medium text-gold animate-fade-in-up">
+                CASE STUDY: BCR LIBERIA
+            </div>
+            <h1 class="text-5xl md:text-8xl font-extrabold mb-6 tracking-tight leading-tight">
+                <span class="block text-white">Precision BIM</span>
+                <span class="text-gradient">Engineering</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                Experience the future of construction with LOD 350 modeling. Architecture, Structure, and MEP perfectly
+                coordinated.
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                <button onclick="openModal()"
+                    class="group relative px-8 py-4 bg-white text-black rounded-full font-bold overflow-hidden transition-all hover:scale-105">
+                    <span class="relative z-10">Start Project</span>
+                    <div
+                        class="absolute inset-0 bg-gold transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300">
+                    </div>
+                </button>
+                <a href="#gallery"
+                    class="px-8 py-4 rounded-full border border-white/20 hover:bg-white/10 transition-all backdrop-blur-sm">
+                    View Gallery
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+            <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="py-32 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Project <span class="text-gradient">Evolution</span>
+                </h2>
+                <p class="text-gray-400">From concept to coordinated reality.</p>
+            </div>
+
+            <div class="max-w-5xl mx-auto relative">
+                <!-- Gradient Line -->
+                <div
+                    class="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-gold via-accent to-purple-500 opacity-30">
+                </div>
+
+                <!-- Phase 1 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between mb-24 group reveal">
+                    <div class="w-full md:w-5/12 md:text-right pr-8 pl-12 md:pl-0">
+                        <h3 class="text-3xl font-bold text-white mb-2">Input Analysis</h3>
+                        <p class="text-gray-400">Deep dive into CAD drawings and site data for the Library and Bank
+                            complex.</p>
+                    </div>
+                    <div
+                        class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#0B1120] border-4 border-gold rounded-full z-10 group-hover:scale-125 transition-transform duration-300 shadow-[0_0_20px_rgba(245,158,11,0.5)]">
+                    </div>
+                    <div class="w-full md:w-5/12 pl-12 md:pl-8 mt-4 md:mt-0">
+                        <span class="text-6xl font-black text-white/5 absolute -top-10 -z-10">01</span>
+                        <span class="text-gold font-mono text-sm tracking-widest">PHASE ONE</span>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between mb-24 group reveal">
+                    <div class="w-full md:w-5/12 md:text-right pr-8 pl-12 md:pl-0 order-1 md:order-1">
+                        <span class="text-6xl font-black text-white/5 absolute -top-10 right-0 -z-10">02</span>
+                        <span class="text-accent font-mono text-sm tracking-widest">PHASE TWO</span>
+                    </div>
+                    <div
+                        class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#0B1120] border-4 border-accent rounded-full z-10 group-hover:scale-125 transition-transform duration-300 shadow-[0_0_20px_rgba(56,189,248,0.5)]">
+                    </div>
+                    <div class="w-full md:w-5/12 pl-12 md:pl-8 mt-4 md:mt-0 order-2 md:order-3">
+                        <h3 class="text-3xl font-bold text-white mb-2">LOD 350 Modeling</h3>
+                        <p class="text-gray-400">Developing high-fidelity architectural, structural, and MEP models in
+                            Revit.</p>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="relative flex flex-col md:flex-row items-center justify-between group reveal">
+                    <div class="w-full md:w-5/12 md:text-right pr-8 pl-12 md:pl-0">
+                        <h3 class="text-3xl font-bold text-white mb-2">Final Delivery</h3>
+                        <p class="text-gray-400">Submission of fully coordinated BIM models ready for construction.</p>
+                    </div>
+                    <div
+                        class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#0B1120] border-4 border-purple-500 rounded-full z-10 group-hover:scale-125 transition-transform duration-300 shadow-[0_0_20px_rgba(168,85,247,0.5)]">
+                    </div>
+                    <div class="w-full md:w-5/12 pl-12 md:pl-8 mt-4 md:mt-0">
+                        <span class="text-6xl font-black text-white/5 absolute -top-10 -z-10">03</span>
+                        <span class="text-purple-500 font-mono text-sm tracking-widest">PHASE THREE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bento Grid Gallery -->
+    <section id="gallery" class="py-32 relative z-10 bg-black/20">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Visual <span class="text-gradient">Showcase</span>
+                    </h2>
+                    <p class="text-gray-400 max-w-md">Explore the intricate details of our BIM models.</p>
+                </div>
+                <button
+                    class="hidden md:block px-6 py-2 border border-white/20 rounded-full hover:bg-white/10 transition-colors">View
+                    All Projects</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 h-auto md:h-[800px]">
+                <!-- Large Item -->
+                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-3xl glass-card reveal">
+                    <img src="images/gallery-1.webp" alt="Gallery 1"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <h3 class="text-2xl font-bold text-white">Exterior Facade</h3>
+                        <p class="text-gray-300">LOD 350 Detail</p>
+                    </div>
+                </div>
+
+                <!-- Tall Item -->
+                <div class="md:col-span-1 md:row-span-2 relative group overflow-hidden rounded-3xl glass-card reveal">
+                    <img src="images/gallery-2.webp" alt="Gallery 2"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <h3 class="text-xl font-bold text-white">Structural</h3>
+                        <p class="text-gray-300">Steel Framework</p>
+                    </div>
+                </div>
+
+                <!-- Standard Items -->
+                <div class="relative group overflow-hidden rounded-3xl glass-card h-64 md:h-auto reveal">
+                    <img src="images/gallery-3.webp" alt="Gallery 3"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <button onclick="openModal()"
+                            class="bg-white text-black px-4 py-2 rounded-full font-bold transform translate-y-4 group-hover:translate-y-0 transition-all">View</button>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-3xl glass-card h-64 md:h-auto reveal">
+                    <img src="images/gallery-4.webp" alt="Gallery 4"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <button onclick="openModal()"
+                            class="bg-white text-black px-4 py-2 rounded-full font-bold transform translate-y-4 group-hover:translate-y-0 transition-all">View</button>
+                    </div>
+                </div>
+
+                <!-- Wide Item -->
+                <div class="md:col-span-2 relative group overflow-hidden rounded-3xl glass-card h-64 md:h-auto reveal">
+                    <img src="images/gallery-5.webp" alt="Gallery 5"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                        <h3 class="text-xl font-bold text-white">MEP Coordination</h3>
+                        <p class="text-gray-300">Clash Detection</p>
+                    </div>
+                </div>
+
+                <!-- Standard Item -->
+                <div class="relative group overflow-hidden rounded-3xl glass-card h-64 md:h-auto reveal">
+                    <img src="images/gallery-6.webp" alt="Gallery 6"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <button onclick="openModal()"
+                            class="bg-white text-black px-4 py-2 rounded-full font-bold transform translate-y-4 group-hover:translate-y-0 transition-all">View</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#050914] py-20 border-t border-white/5 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0 text-center md:text-left">
+                    <h2 class="text-3xl font-bold text-white mb-2">TOS<span class="text-gold">.</span></h2>
+                    <p class="text-gray-500">Precision BIM Solutions for the Modern World.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">LinkedIn</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Twitter</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Instagram</a>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-white/5 text-center text-gray-600 text-sm">
+                &copy; 2025 Tesla Outsourcing Services. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="quoteModal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-md transition-opacity" onclick="closeModal()"></div>
+        <div
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-lg p-1 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 shadow-2xl">
+            <div class="bg-[#0B1120] rounded-[22px] p-8 relative overflow-hidden">
+                <!-- Decorative Glow -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-3xl -mr-16 -mt-16"></div>
+
+                <h3 class="text-3xl font-bold mb-2 text-white">Let's Build</h3>
+                <p class="text-gray-400 mb-8">Ready to start your BIM project? Get a quote today.</p>
+
+                <form onsubmit="event.preventDefault(); alert('Quote request sent!'); closeModal();" class="space-y-5">
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">Name</label>
+                        <input type="text"
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all"
+                            placeholder="John Doe" required>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">Email</label>
+                        <input type="email"
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all"
+                            placeholder="john@example.com" required>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">Project Details</label>
+                        <textarea
+                            class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all h-32 resize-none"
+                            placeholder="Tell us about your project..." required></textarea>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-gold to-orange-500 text-black py-4 rounded-xl font-bold hover:shadow-lg hover:scale-[1.02] transition-all">Send
+                        Request</button>
+                </form>
+                <button onclick="closeModal()"
+                    class="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Intersection Observer for Reveal Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in-up');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Add initial styles for reveal elements
+        document.querySelectorAll('.reveal').forEach((el) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+
+        // Modal Logic
+        function openModal() {
+            const modal = document.getElementById('quoteModal');
+            modal.classList.remove('hidden');
+            // Add simple entrance animation
+            modal.querySelector('div[class*="max-w-lg"]').classList.add('animate-scale-in');
+        }
+
+        function closeModal() {
+            document.getElementById('quoteModal').classList.add('hidden');
+        }
+    </script>
+
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .animate-scale-in {
+            animation: scaleIn 0.3s ease-out forwards;
+        }
+    </style>
+</body>
+
+</html>
